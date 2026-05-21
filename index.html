@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="si">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ultimate Liquid Glass with Ripple Effect</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            
+            /* --- ඔයා එවපු 2වෙනි නිල් පින්තූරය --- */
+            background-image: url('https://i.ibb.co/68vM6H1/blue-wallpaper-fixed.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            
+            height: 100vh;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden; /* රිපල් එක පිටතට පැනීම වැළැක්වීමට */
+            position: relative;
+        }
+
+        /* --- 💜 මෙන්න ලා දම් පාට RIPPLE EFFECT එකේ CSS --- */
+        .ripple {
+            position: absolute;
+            background: radial-gradient(circle, rgba(214, 162, 232, 0.6) 0%, rgba(155, 89, 182, 0) 70%);
+            border: 2px solid rgba(224, 86, 253, 0.8);
+            border-radius: 50%;
+            pointer-events: none; /* රිපල් එක උඩ ටච් එක බ්ලොක් නොවීමට */
+            transform: translate(-50%, -50%);
+            animation: rippleAnimation 1s ease-out forwards;
+        }
+
+        @keyframes rippleAnimation {
+            0% {
+                width: 0px;
+                height: 0px;
+                opacity: 1;
+            }
+            100% {
+                width: 500px; /* විහිදිලා යන උපරිම ප්‍රමාණය */
+                height: 500px;
+                opacity: 0; /* අන්තිමට නොපෙනී යනවා */
+            }
+        }
+
+        /* --- GLASS BOX සහ අනෙකුත් ස්ටයිල්ස් --- */
+        .glass-box {
+            background: rgba(255, 255, 255, 0.1); 
+            backdrop-filter: blur(20px); 
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            padding: 35px 25px;
+            margin: 20px;
+            border-radius: 24px;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.15);
+            text-align: center;
+            max-width: 350px;
+            width: 100%;
+            z-index: 10; /* රිපල් එක බොක්ස් එක යටින් පේන්න */
+        }
+
+        .profile-img {
+            width: 120px;
+            height: 90px;
+            border-radius: 12px;
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            object-fit: cover;
+            margin-bottom: 15px;
+        }
+
+        h1 {
+            color: #ffffff;
+            font-size: 26px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.15);
+            margin: 5px 0;
+        }
+
+        #clock {
+            font-size: 24px;
+            color: #ffffff;
+            font-weight: bold;
+            background: rgba(0, 0, 0, 0.25);
+            padding: 8px 15px;
+            border-radius: 10px;
+            display: inline-block;
+            margin: 10px 0;
+            letter-spacing: 2px;
+        }
+
+        .typing-container {
+            color: #ffffff;
+            font-size: 16px;
+            min-height: 24px;
+            margin: 10px 0;
+            font-weight: 500;
+        }
+        .cursor {
+            animation: blink 0.7s infinite;
+        }
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        button {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            padding: 12px 28px;
+            font-size: 16px;
+            border-radius: 12px;
+            cursor: pointer;
+            backdrop-filter: blur(5px);
+            transition: all 0.3s ease;
+            font-weight: bold;
+            margin-top: 15px;
+            width: 85%;
+        }
+
+        button:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(1.05);
+        }
+
+        .yt-btn {
+            display: inline-block;
+            background: rgba(255, 71, 87, 0.5); 
+            color: white;
+            text-decoration: none;
+            border: 1px solid rgba(255, 71, 87, 0.6);
+            padding: 12px 28px;
+            font-size: 16px;
+            border-radius: 12px;
+            backdrop-filter: blur(5px);
+            transition: all 0.3s ease;
+            font-weight: bold;
+            margin-top: 15px;
+            width: 70%;
+            z-index: 20;
+        }
+
+        .yt-btn:hover {
+            background: rgba(255, 71, 87, 0.8);
+            transform: scale(1.05);
+        }
+
+        #result {
+            margin-top: 20px;
+            color: #ffffff;
+            font-size: 16px;
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="glass-box">
+        <img src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?q=80&w=200&auto=format&fit=crop" alt="MacBook" class="profile-img">
+        
+        <h1>MacBook Core ✨</h1>
+        
+        <div id="clock">00:00:00 AM</div>
+
+        <div class="typing-container">
+            <span id="typing-text"></span><span class="cursor">|</span>
+        </div>
+        
+        <button id="magicBtn">Touch Me ⚡</button>
+        
+        <a href="https://www.youtube.com/@ඔයාගේ_චැනල්_නම" target="_blank" class="yt-btn">
+            My YouTube Channel 🔴
+        </a>
+        
+        <div id="result"></div>
+    </div>
+
+    <script>
+        // --- 💜 4. BACKGROUND TOUCH RIPPLE JAVASCRIPT ---
+        // ස්ක්‍රීන් එකේ කොතන ටච් කළත් ක්‍රියාත්මක වන කේතය
+        window.addEventListener('click', function(e) {
+            // බටන් එකක් උඩ ක්ලික් කළොත් රිපල් එක හැදෙන්නේ නැති වෙන්න (අත්‍යවශ්‍යයි)
+            if(e.target.tagName === 'BUTTON' || e.target.tagName === 'A') return;
+
+            // අලුත් රිපල් element එකක් හදනවා
+            let ripple = document.createElement('div');
+            ripple.classList.add('ripple');
+            document.body.appendChild(ripple);
+
+            // ඇඟිල්ල තිබ්බ තැන ඛණ්ඩාංක (Position) ලබාගන්නවා
+            let x = e.clientX;
+            let y = e.clientY;
+
+            // රිපල් එක ඇඟිල්ල තිබ්බ තැනින්ම මතු කරවනවා
+            ripple.style.left = x + 'px';
+            ripple.style.top = y + 'px';
+
+            // ඇනිමේෂන් එක ඉවර වුණාම ඒ රිපල් එක කෝඩ් එකෙන් අයින් කරනවා (Memory පිරිමැසීමට)
+            setTimeout(() => {
+                ripple.remove();
+            }, 1000);
+        });
+
+
+        // 1. ඔරලෝසුව
+        function updateClock() {
+            const now = new Date();
+            let hours = now.getHours();
+            let minutes = now.getMinutes();
+            let seconds = now.getSeconds();
+            let ampm = hours >= 12 ? 'PM' : 'AM';
+            
+            hours = hours % 12;
+            hours = hours ? hours : 12;
+            
+            hours = hours < 10 ? '0' + hours : hours;
+            minutes = minutes < 10 ? '0' + minutes : minutes;
+            seconds = seconds < 10 ? '0' + seconds : seconds;
+            
+            document.getElementById('clock').innerText = hours + ':' + minutes + ':' + seconds + ' ' + ampm;
+        }
+        setInterval(updateClock, 1000);
+        updateClock();
+
+        // 2. ටයිපින් ඇනිමේෂන් එක
+        const words = ["Welcome to my Website!", "I am a Web Developer💻", "Subscribe to my YT Channel🔴"];
+        let i = 0;
+        let timer;
+
+        function typingEffect() {
+            let word = words[i].split("");
+            var loopTyping = function() {
+                if (word.length > 0) {
+                    document.getElementById('typing-text').innerHTML += word.shift();
+                } else {
+                    setTimeout(deletingEffect, 2000);
+                    return false;
+                }
+                timer = setTimeout(loopTyping, 100);
+            };
+            loopTyping();
+        }
+
+        function deletingEffect() {
+            let word = words[i].split("");
+            var loopDeleting = function() {
+                if (word.length > 0) {
+                    word.pop();
+                    document.getElementById('typing-text').innerHTML = word.join("");
+                } else {
+                    if (words.length > i + 1) {
+                        i++;
+                    } else {
+                        i = 0;
+                    }
+                    setTimeout(typingEffect, 500);
+                    return false;
+                }
+                timer = setTimeout(loopDeleting, 50);
+            };
+            loopDeleting();
+        }
+        typingEffect();
+
+        // 3. බටන් එක
+        document.getElementById('magicBtn').addEventListener('click', function() {
+            document.getElementById('result').innerText = "❤️ වැඩකෑලි ටික සුපිරියටම වැඩ නේද?";
+            this.style.background = "rgba(46, 213, 115, 0.6)";
+            this.innerText = "Done! 🎉";
+        });
+    </script>
+
+</body>
+</html>
